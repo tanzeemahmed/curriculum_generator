@@ -60,9 +60,11 @@ ui <- fluidPage(   img(src='https://cdn.datafloq.com/cache/f7/63/28877-Big-Data-
                              
                            )),
                
-               actionButton("generate","Generate Curriculum"),
+               conditionalPanel(condition = "input.background != 'lev9'",actionButton("generate","Generate Curriculum")),
                
-               conditionalPanel(condition = "input.background == 'lev9'",downloadButton("downloadData", label = "Download"))
+               #actionButton("generate","Generate Curriculum"),
+               
+               conditionalPanel(condition = "input.background == 'lev9'",downloadButton("downloadData", label = "Download Curriculum"))
                
                ),
                
@@ -89,6 +91,19 @@ server <- function(input, output, session) {
 
 
   })
+  
+  #Code to download file
+  output$downloadData <- downloadHandler(
+    filename <- function() {
+      paste("curriculum", "zip", sep=".")
+    },
+    
+    content <- function(file) {
+      file.copy("1 day Leadership Program deck for proposal-.pptx.zip", file)
+    },
+    contentType = "application/zip"
+  )
+  
 }
 shinyApp(ui = ui, server = server)
 
