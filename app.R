@@ -60,11 +60,11 @@ ui <- fluidPage(   img(src='https://cdn.datafloq.com/cache/f7/63/28877-Big-Data-
                              
                            )),
                
-               conditionalPanel(condition = "input.background != 'lev9'",actionButton("generate","Generate Curriculum")),
+               conditionalPanel(condition = " input.background != 'lev8' & input.background != 'lev9' ",actionButton("generate","Generate Curriculum")),
                
                #actionButton("generate","Generate Curriculum"),
                
-               conditionalPanel(condition = "input.background == 'lev9'",downloadButton("downloadData", label = "Download Curriculum"))
+               conditionalPanel(condition = "input.background == 'lev8' || input.background == 'lev9'",downloadButton("downloadData", label = "Download Curriculum"))
                
                ),
                
@@ -99,7 +99,11 @@ server <- function(input, output, session) {
     },
     
     content <- function(file) {
+      if(input$background == "lev9"){
       file.copy("1 day Leadership Program deck for proposal-.pptx.zip", file)
+      }
+      else {file.copy("3 day Translator_v2_latest.pptx.zip", file)
+}
     },
     contentType = "application/zip"
   )
