@@ -59,14 +59,19 @@ ui <- fluidPage(   img(src='https://cdn.datafloq.com/cache/f7/63/28877-Big-Data-
                              "Not mentioned/Not known/ Doesnt matter" = "na"
                              
                            )),
-               actionButton("generate","Generate Curriculum")
+               
+               actionButton("generate","Generate Curriculum"),
+               
+               conditionalPanel(condition = "input.background == 'lev9'",downloadButton("downloadData", label = "Download"))
                
                ),
+               
+              # conditionalPanel(condition = "input.background == "lev9",downloadButton("downloadData", label = "Download")),
   
               mainPanel(      textOutput("txtOutput"),
                               DT::dataTableOutput("responses", width = 500), tags$hr()
               )
-              ))
+              )  )
 server <- function(input, output, session) {
   curriculum <- as.data.frame(bcl)
   #observe the add click and perform a reactive expression
